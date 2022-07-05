@@ -22,6 +22,7 @@ namespace AppVendas.Models.Services
 
         public void Insert(Vendedor obj)
         {
+             obj.Department = _context.Department.First();
             _context.Add(obj);
             _context.SaveChanges();
         }

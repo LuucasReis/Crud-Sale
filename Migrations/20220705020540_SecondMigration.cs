@@ -22,14 +22,14 @@ namespace AppVendas.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DataNascimento = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Salario = table.Column<double>(type: "double", nullable: false),
-                    DepartamentId = table.Column<int>(type: "int", nullable: false)
+                    DepartmentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Vendedor", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Vendedor_Department_DepartamentId",
-                        column: x => x.DepartamentId,
+                        name: "FK_Vendedor_Department_DepartmentId",
+                        column: x => x.DepartmentId,
                         principalTable: "Department",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -65,9 +65,9 @@ namespace AppVendas.Migrations
                 column: "VendedorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Vendedor_DepartamentId",
+                name: "IX_Vendedor_DepartmentId",
                 table: "Vendedor",
-                column: "DepartamentId");
+                column: "DepartmentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

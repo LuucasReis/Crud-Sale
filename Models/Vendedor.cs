@@ -10,7 +10,8 @@ namespace AppVendas.Models
         public string Nome { get; set; }
         public DateTime DataNascimento  { get; set; }
         public double Salario { get; set; }
-        public Department Departament { get; set; }
+        public Department Department { get; set; }
+        public int DepartmentId { get; set; }
         public ICollection<RegistroVendas> Vendas { get; set; } = new List<RegistroVendas>();
 
         public Vendedor()
@@ -24,7 +25,7 @@ namespace AppVendas.Models
             Nome= nome;
             DataNascimento = date;
             Salario= salario;
-            Departament= departamento;
+            Department= departamento;
         }
 
         public void AddVenda(RegistroVendas venda)

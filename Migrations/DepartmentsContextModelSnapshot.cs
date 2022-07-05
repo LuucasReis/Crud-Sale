@@ -67,7 +67,7 @@ namespace AppVendas.Migrations
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DepartamentId")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -83,7 +83,7 @@ namespace AppVendas.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartamentId");
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Vendedor");
                 });
@@ -101,13 +101,13 @@ namespace AppVendas.Migrations
 
             modelBuilder.Entity("AppVendas.Models.Vendedor", b =>
                 {
-                    b.HasOne("AppVendas.Models.Department", "Departament")
+                    b.HasOne("AppVendas.Models.Department", "Department")
                         .WithMany("Vendedores")
-                        .HasForeignKey("DepartamentId")
+                        .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Departament");
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("AppVendas.Models.Department", b =>
