@@ -24,5 +24,18 @@ namespace AppVendas.Controllers
             var list = _VendedorService.FindAll();
             return View(list);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Vendedor Vendedor)
+        {
+            _VendedorService.Insert(Vendedor);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
