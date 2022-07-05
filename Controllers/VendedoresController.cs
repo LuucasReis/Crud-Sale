@@ -6,14 +6,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AppVendas.Models;
+using AppVendas.Models.Services;
 
 namespace AppVendas.Controllers
 {
     public class VendedoresController : Controller
     {
+        private readonly VendedorService _VendedorService;
+
+        public VendedoresController(VendedorService VendedorService)
+        {
+            _VendedorService = VendedorService;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var list = _VendedorService.FindAll();
+            return View(list);
         }
     }
 }

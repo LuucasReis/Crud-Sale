@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using AppVendas.Data;
+using AppVendas.Models;
+using AppVendas.Models.Services;
 namespace AppVendas
 {
     public class Program
@@ -10,6 +12,7 @@ namespace AppVendas
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddTransient<SeedingService>();
+            builder.Services.AddScoped<VendedorService>();
 
             string ConnectionString= builder.Configuration.GetConnectionString("DepartmentsContext");
             builder.Services.AddDbContext<DepartmentsContext>(options =>
