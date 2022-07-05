@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AppVendas.Models;
 using AppVendas.Models.ViewModels;
 using AppVendas.Models.Services;
+using AppVendas.Models.Services.Exceptions;
 
 namespace AppVendas.Controllers
 {
@@ -31,7 +32,7 @@ namespace AppVendas.Controllers
         public IActionResult Create()
         {
             var departments = _DepartmentService.FindAllDepartment();
-            var ViewModel= new VendedorFormViewModel(){Departments = departments};
+            var ViewModel = new VendedorFormViewModel() { Departments = departments };
             return View(ViewModel);
         }
 
@@ -45,12 +46,12 @@ namespace AppVendas.Controllers
 
         public IActionResult Delete(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var vendedor= _VendedorService.FindByID(id.Value);
+            var vendedor = _VendedorService.FindByID(id.Value);
             if (vendedor == null)
             {
                 return NotFound();
@@ -69,18 +70,63 @@ namespace AppVendas.Controllers
 
         public IActionResult Details(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var vendedor= _VendedorService.FindByID(id.Value);
+            var vendedor = _VendedorService.FindByID(id.Value);
             if (vendedor == null)
             {
                 return NotFound();
             }
 
             return View(vendedor);
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _VendedorService.FindByID(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            List<Department> departments = _DepartmentService.FindAllDepartment();
+            VendedorFormViewModel viewModel = new VendedorFormViewModel { Vendedor = obj, Departments = departments };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public IActionResult Edit(int id, Vendedor vendedor)
+        {
+            if (id != vendedor.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                _VendedorService.Update(vendedor);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundException)
+            {
+
+                return NotFound();
+            }
+            catch(DbConcurrencyException)
+            {
+                return BadRequest();
+            }
         }
     }
 }
