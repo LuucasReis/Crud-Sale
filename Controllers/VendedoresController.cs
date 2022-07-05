@@ -40,12 +40,7 @@ namespace AppVendas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Vendedor vendedor)
         {
-            if(!ModelState.IsValid)
-            {
-                var departments = await _DepartmentService.FindAllDepartmentAsync();
-                var viewModel = new VendedorFormViewModel {Departments = departments, Vendedor = vendedor};
-                return View(viewModel);
-            }
+
             await _VendedorService.InsertAsync(vendedor);
             return RedirectToAction(nameof(Index));
         }
@@ -54,13 +49,13 @@ namespace AppVendas.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new{message="Id não especificado."});
+                return RedirectToAction(nameof(Error), new { message = "Id não especificado." });
             }
 
             var vendedor = await _VendedorService.FindByIDAsync(id.Value);
             if (vendedor == null)
             {
-                return RedirectToAction(nameof(Error), new{message ="Id não encontrado." });
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado." });
             }
 
             return View(vendedor);
@@ -70,21 +65,28 @@ namespace AppVendas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            await _VendedorService.RemoveAsync(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _VendedorService.RemoveAsync(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (IntegrityException e)
+            {
+               return RedirectToAction(nameof(Error), new { message = e.Message});
+            }
         }
 
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new{message="Id não especificado"});
+                return RedirectToAction(nameof(Error), new { message = "Id não especificado" });
             }
 
             var vendedor = await _VendedorService.FindByIDAsync(id.Value);
             if (vendedor == null)
             {
-                return RedirectToAction(nameof(Error), new{message="Id não encontrado"});
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
             return View(vendedor);
@@ -94,13 +96,13 @@ namespace AppVendas.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new{message= "Id não especificado"});
+                return RedirectToAction(nameof(Error), new { message = "Id não especificado" });
             }
 
             var obj = await _VendedorService.FindByIDAsync(id.Value);
             if (obj == null)
             {
-                return RedirectToAction(nameof(Error), new{message= "Id não encontrado"});
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
             List<Department> departments = await _DepartmentService.FindAllDepartmentAsync();
@@ -114,16 +116,11 @@ namespace AppVendas.Controllers
 
         public async Task<IActionResult> Edit(int id, Vendedor vendedor)
         {
-            if (!ModelState.IsValid)
-            {
-                var departments = await _DepartmentService.FindAllDepartmentAsync();
-                var viewModel = new VendedorFormViewModel { Vendedor = vendedor, Departments = departments };
-                return View(viewModel);
-            }
+
 
             if (id != vendedor.Id)
             {
-                return RedirectToAction(nameof(Error), new{message="Id não correspondente."});
+                return RedirectToAction(nameof(Error), new { message = "Id não correspondente." });
             }
 
             try
@@ -134,7 +131,7 @@ namespace AppVendas.Controllers
             catch (ApplicationException e)
             {
 
-                return RedirectToAction(nameof(Error), new{message = e.Message});
+                return RedirectToAction(nameof(Error), new { message = e.Message });
             }
         }
 
@@ -142,10 +139,10 @@ namespace AppVendas.Controllers
         {
             var viewModel = new ErrorViewModel
             {
-               RequestId = Activity.Current?.Id?? HttpContext.TraceIdentifier,
-               Message = message
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+                Message = message
             };
-            
+
             return View(viewModel);
         }
     }

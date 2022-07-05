@@ -1,5 +1,6 @@
 using AppVendas.Models;
 using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,9 +36,18 @@ namespace AppVendas.Models.Services
 
         public async Task RemoveAsync(int id)
         {
-            var vendedor = await _context.Vendedor.FindAsync(id);
-            _context.Vendedor.Remove(vendedor);
-            await _context.SaveChangesAsync();
+
+            try
+            {
+                var vendedor = await _context.Vendedor.FindAsync(id);
+                _context.Vendedor.Remove(vendedor);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException e)
+            {
+                
+                throw new IntegrityException("Não posso deletar o vendedor, pois ele tem vendas.");
+            }
         }
 
         public async Task UpdateAsync(Vendedor vendedor)

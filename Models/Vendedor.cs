@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -23,6 +24,7 @@ namespace AppVendas.Models
         public DateTime DataNascimento  { get; set; }
 
         [Required(ErrorMessage = "O campo {0} É obrigatório")]
+        [DataType(DataType.CreditCard, ErrorMessage ="Precisa ser um número")]
         [Range(100.0, 50000.0, ErrorMessage = "O {0} deve ser no mínimo {1} e máximo {2}")]
         [Display(Name = "Base Salary")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
