@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using AppVendas.Data;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 using AppVendas.Models;
 using AppVendas.Models.Services;
 namespace AppVendas
@@ -22,6 +24,17 @@ namespace AppVendas
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
+
+            var ptBR = new CultureInfo("pt-BR");
+            var localizationOptions = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(ptBR),
+                SupportedCultures = new List<CultureInfo> { ptBR },
+                SupportedUICultures = new List<CultureInfo> { ptBR }
+            };
+
+            app.UseRequestLocalization(localizationOptions);
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
