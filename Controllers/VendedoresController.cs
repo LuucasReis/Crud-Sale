@@ -1,4 +1,4 @@
-using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,13 +48,13 @@ namespace AppVendas.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new{message="Id não especificado."});
             }
 
             var vendedor = _VendedorService.FindByID(id.Value);
             if (vendedor == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new{message ="Id não encontrado." });
             }
 
             return View(vendedor);
@@ -72,13 +72,13 @@ namespace AppVendas.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new{message="Id não especificado"});
             }
 
             var vendedor = _VendedorService.FindByID(id.Value);
             if (vendedor == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new{message="Id não encontrado"});
             }
 
             return View(vendedor);
@@ -88,13 +88,13 @@ namespace AppVendas.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new{message= "Id não especificado"});
             }
 
             var obj = _VendedorService.FindByID(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new{message= "Id não encontrado"});
             }
 
             List<Department> departments = _DepartmentService.FindAllDepartment();
@@ -110,7 +110,7 @@ namespace AppVendas.Controllers
         {
             if (id != vendedor.Id)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new{message="Id não correspondente."});
             }
 
             try
@@ -118,15 +118,22 @@ namespace AppVendas.Controllers
                 _VendedorService.Update(vendedor);
                 return RedirectToAction(nameof(Index));
             }
-            catch (NotFoundException)
+            catch (ApplicationException e)
             {
 
-                return NotFound();
+                return RedirectToAction(nameof(Error), new{message = e.Message});
             }
-            catch(DbConcurrencyException)
+        }
+
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
             {
-                return BadRequest();
-            }
+               RequestId = Activity.Current?.Id?? HttpContext.TraceIdentifier,
+               Message = message
+            };
+            
+            return View(viewModel);
         }
     }
 }
