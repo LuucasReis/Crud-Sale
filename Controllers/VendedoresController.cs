@@ -38,9 +38,15 @@ namespace AppVendas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Vendedor Vendedor)
+        public IActionResult Create(Vendedor vendedor)
         {
-            _VendedorService.Insert(Vendedor);
+            if(!ModelState.IsValid)
+            {
+                var departments = _DepartmentService.FindAllDepartment();
+                var viewModel = new VendedorFormViewModel {Departments = departments, Vendedor = vendedor};
+                return View(viewModel);
+            }
+            _VendedorService.Insert(vendedor);
             return RedirectToAction(nameof(Index));
         }
 
@@ -108,6 +114,13 @@ namespace AppVendas.Controllers
 
         public IActionResult Edit(int id, Vendedor vendedor)
         {
+            if(!ModelState.IsValid)
+            {
+                var departments = _DepartmentService.FindAllDepartment();
+                var viewModel = new VendedorFormViewModel {Departments = departments, Vendedor = vendedor};
+                return View(viewModel);
+            }
+
             if (id != vendedor.Id)
             {
                 return RedirectToAction(nameof(Error), new{message="Id não correspondente."});
