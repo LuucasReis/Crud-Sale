@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace AppVendas.Models.Services
 {
@@ -28,7 +29,7 @@ namespace AppVendas.Models.Services
 
         public Vendedor FindByID(int id)
         {
-            return _context.Vendedor.FirstOrDefault(x=> x.Id == id);
+            return _context.Vendedor.Include(x=> x.Department).FirstOrDefault(x=> x.Id == id);
         }
 
         public void Remove(int id)

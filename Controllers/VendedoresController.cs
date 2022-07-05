@@ -66,5 +66,21 @@ namespace AppVendas.Controllers
             _VendedorService.Remove(id);
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult Details(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var vendedor= _VendedorService.FindByID(id.Value);
+            if (vendedor == null)
+            {
+                return NotFound();
+            }
+
+            return View(vendedor);
+        }
     }
 }
