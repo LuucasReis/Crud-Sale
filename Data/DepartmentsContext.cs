@@ -13,4 +13,7 @@ using AppVendas.Models;
         }
 
         public DbSet<AppVendas.Models.Department>? Department { get; set; }
+        public DbSet<AppVendas.Models.Vendedor>? Vendedor { get; set; }
+        public DbSet<AppVendas.Models.RegistroVendas>? RegistroVendas { get; set; }
+        
     }
