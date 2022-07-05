@@ -25,5 +25,17 @@ namespace AppVendas.Models.Services
             _context.Add(vendedor);
             _context.SaveChanges();
         }
+
+        public Vendedor FindByID(int id)
+        {
+            return _context.Vendedor.FirstOrDefault(x=> x.Id == id);
+        }
+
+        public void Remove(int id)
+        {
+           var vendedor = _context.Vendedor.Find(id);
+           _context.Vendedor.Remove(vendedor);
+           _context.SaveChanges();
+        }
     }
 }
