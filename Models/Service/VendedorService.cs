@@ -20,10 +20,9 @@ namespace AppVendas.Models.Services
             return _context.Vendedor.ToList();
         }
 
-        public void Insert(Vendedor obj)
+        public void Insert(Vendedor vendedor)
         {
-             obj.Department = _context.Department.First();
-            _context.Add(obj);
+            _context.Add(vendedor);
             _context.SaveChanges();
         }
     }

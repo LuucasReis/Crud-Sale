@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AppVendas.Models;
+using AppVendas.Models.ViewModels;
 using AppVendas.Models.Services;
 
 namespace AppVendas.Controllers
@@ -13,10 +14,12 @@ namespace AppVendas.Controllers
     public class VendedoresController : Controller
     {
         private readonly VendedorService _VendedorService;
+        private readonly DepartmentService _DepartmentService;
 
-        public VendedoresController(VendedorService VendedorService)
+        public VendedoresController(VendedorService VendedorService, DepartmentService departmentService)
         {
             _VendedorService = VendedorService;
+            _DepartmentService = departmentService;
         }
 
         public IActionResult Index()
@@ -27,7 +30,9 @@ namespace AppVendas.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var departments = _DepartmentService.FindAllDepartment();
+            var ViewModel= new VendedorFormViewModel(){Departments = departments};
+            return View(ViewModel);
         }
 
         [HttpPost]

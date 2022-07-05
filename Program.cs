@@ -13,6 +13,7 @@ namespace AppVendas
 
             builder.Services.AddTransient<SeedingService>();
             builder.Services.AddScoped<VendedorService>();
+            builder.Services.AddScoped<DepartmentService>();
 
             string ConnectionString= builder.Configuration.GetConnectionString("DepartmentsContext");
             builder.Services.AddDbContext<DepartmentsContext>(options =>
