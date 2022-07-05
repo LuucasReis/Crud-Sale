@@ -10,18 +10,18 @@ namespace AppVendas.Models.Services
             _context = context;
         }
 
-        public async Task<List<RegistroVendas>> FindByDate(DateTime? inicio, DateTime? fim)
+        public async Task<List<RegistroVendas>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
         {
             var result = from x in _context.RegistroVendas select x;
 
-            if (inicio.HasValue)
+            if (minDate.HasValue)
             {
-                result = result.Where(x => x.Data >= inicio.Value);
+                result = result.Where(x => x.Data >= minDate.Value);
             }
 
-            if (fim.HasValue)
+            if (maxDate.HasValue)
             {
-                result = result.Where(x => x.Data <= fim.Value);
+                result = result.Where(x => x.Data <= maxDate.Value);
             }
 
             return await result

@@ -2,20 +2,38 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AppVendas.Models.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AppVendas.Controllers
 {
     public class RegistroVendassController : Controller
     {
+        private readonly RegistroVendasService _RegistroVendasService;
+
+        public RegistroVendassController(RegistroVendasService service)
+        {
+            _RegistroVendasService = service;
+        }
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult SimpleSearch()
+        public async Task<IActionResult> SimpleSearch(DateTime? minDate, DateTime? maxDate)
         {
-            return View();
+            if (!minDate.HasValue)
+            {
+                minDate = new DateTime(DateTime.Now.Year, 1, 1);
+            }
+            if (!maxDate.HasValue)
+            {
+                maxDate = DateTime.Now;
+            }
+            ViewData["minDate"] = minDate.Value;
+            ViewData["maxDate"] = maxDate.Value;
+            var result = await _RegistroVendasService.FindByDateAsync(minDate, maxDate);
+            return View(result);
         }
 
         public IActionResult GroupingSearch()
@@ -23,4 +41,4 @@ namespace AppVendas.Controllers
             return View();
         }
     }
-} 
+}
