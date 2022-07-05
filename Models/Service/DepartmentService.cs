@@ -1,4 +1,5 @@
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 namespace AppVendas.Models.Services
 {
     public class DepartmentService
@@ -10,9 +11,9 @@ namespace AppVendas.Models.Services
             _context = context;
         }
 
-        public List<Department> FindAllDepartment()
+        public async Task<List<Department>> FindAllDepartmentAsync()
         {
-            return _context.Department.OrderBy(x => x.Nome).ToList();
+            return await _context.Department.OrderBy(x => x.Nome).ToListAsync();
         }
     }
 }
