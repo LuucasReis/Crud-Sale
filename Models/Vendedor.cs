@@ -19,14 +19,13 @@ namespace AppVendas.Models
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "O campo {0} É obrigatório")]
-        [Display(Name = "Birth Date")]
+        [Display(Name = "Data de Nascimento")]
         [DataType(DataType.Date)]
         public DateTime DataNascimento  { get; set; }
 
         [Required(ErrorMessage = "O campo {0} É obrigatório")]
-        [DataType(DataType.CreditCard, ErrorMessage ="Precisa ser um número")]
         [Range(100.0, 50000.0, ErrorMessage = "O {0} deve ser no mínimo {1} e máximo {2}")]
-        [Display(Name = "Base Salary")]
+        [Display(Name = "Salario base")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
         public double Salario { get; set; }
 
