@@ -45,21 +45,21 @@ namespace AppVendas.Data
             RegistroVendas r13 = new RegistroVendas(13, new DateTime(2022, 07, 29), 10000.0, StatusVenda.Processado, s4);
             RegistroVendas r14 = new RegistroVendas(14, new DateTime(2022, 07, 4), 3000.0, StatusVenda.Processado, s5);
             RegistroVendas r15 = new RegistroVendas(15, new DateTime(2022, 07, 12), 4000.0, StatusVenda.Processado, s1);
-            RegistroVendas r16 = new RegistroVendas(16, new DateTime(2022, 09, 5), 2000.0, StatusVenda.Processado, s4);
-            RegistroVendas r17 = new RegistroVendas(17, new DateTime(2022, 09, 1), 12000.0, StatusVenda.Processado, s1);
-            RegistroVendas r18 = new RegistroVendas(18, new DateTime(2022, 09, 24), 6000.0, StatusVenda.Processado, s3);
-            RegistroVendas r19 = new RegistroVendas(19, new DateTime(2022, 09, 22), 8000.0, StatusVenda.Processado, s5);
-            RegistroVendas r20 = new RegistroVendas(20, new DateTime(2022, 09, 15), 8000.0, StatusVenda.Processado, s6);
-            RegistroVendas r21 = new RegistroVendas(21, new DateTime(2022, 09, 17), 9000.0, StatusVenda.Processado, s2);
-            RegistroVendas r22 = new RegistroVendas(22, new DateTime(2022, 09, 24), 4000.0, StatusVenda.Processado, s4);
-            RegistroVendas r23 = new RegistroVendas(23, new DateTime(2022, 09, 19), 11000.0, StatusVenda.Cancelado, s2);
-            RegistroVendas r24 = new RegistroVendas(24, new DateTime(2022, 09, 12), 8000.0, StatusVenda.Processado, s5);
-            RegistroVendas r25 = new RegistroVendas(25, new DateTime(2022, 09, 31), 7000.0, StatusVenda.Processado, s3);
-            RegistroVendas r26 = new RegistroVendas(26, new DateTime(2022, 09, 6), 5000.0, StatusVenda.Processado, s4);
-            RegistroVendas r27 = new RegistroVendas(27, new DateTime(2022, 09, 13), 9000.0, StatusVenda.Pendente, s1);
-            RegistroVendas r28 = new RegistroVendas(28, new DateTime(2022, 09, 7), 4000.0, StatusVenda.Processado, s3);
-            RegistroVendas r29 = new RegistroVendas(29, new DateTime(2022, 09, 23), 12000.0, StatusVenda.Processado, s5);
-            RegistroVendas r30 = new RegistroVendas(30, new DateTime(2022, 09, 12), 5000.0, StatusVenda.Processado, s2);
+            RegistroVendas r16 = new RegistroVendas(16, new DateTime(2022, 08, 5), 2000.0, StatusVenda.Processado, s4);
+            RegistroVendas r17 = new RegistroVendas(17, new DateTime(2022, 08, 1), 12000.0, StatusVenda.Processado, s1);
+            RegistroVendas r18 = new RegistroVendas(18, new DateTime(2022, 08, 24), 6000.0, StatusVenda.Processado, s3);
+            RegistroVendas r19 = new RegistroVendas(19, new DateTime(2022, 08, 22), 8000.0, StatusVenda.Processado, s5);
+            RegistroVendas r20 = new RegistroVendas(20, new DateTime(2022, 08, 15), 8000.0, StatusVenda.Processado, s6);
+            RegistroVendas r21 = new RegistroVendas(21, new DateTime(2022, 08, 17), 9000.0, StatusVenda.Processado, s2);
+            RegistroVendas r22 = new RegistroVendas(22, new DateTime(2022, 08, 24), 4000.0, StatusVenda.Processado, s4);
+            RegistroVendas r23 = new RegistroVendas(23, new DateTime(2022, 08, 19), 11000.0, StatusVenda.Cancelado, s2);
+            RegistroVendas r24 = new RegistroVendas(24, new DateTime(2022, 08, 12), 8000.0, StatusVenda.Processado, s5);
+            RegistroVendas r25 = new RegistroVendas(25, new DateTime(2022, 08, 31), 7000.0, StatusVenda.Processado, s3);
+            RegistroVendas r26 = new RegistroVendas(26, new DateTime(2022, 08, 6), 5000.0, StatusVenda.Processado, s4);
+            RegistroVendas r27 = new RegistroVendas(27, new DateTime(2022, 08, 13), 9000.0, StatusVenda.Pendente, s1);
+            RegistroVendas r28 = new RegistroVendas(28, new DateTime(2022, 08, 7), 4000.0, StatusVenda.Processado, s3);
+            RegistroVendas r29 = new RegistroVendas(29, new DateTime(2022, 08, 23), 12000.0, StatusVenda.Processado, s5);
+            RegistroVendas r30 = new RegistroVendas(30, new DateTime(2022, 08, 12), 5000.0, StatusVenda.Processado, s2);
 
             _context.Department.AddRange(d1, d2, d3, d4);
 

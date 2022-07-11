@@ -58,6 +58,11 @@ namespace AppVendas.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado." });
             }
 
+            if (vendedor.Vendas.Any())
+            {
+                return RedirectToAction(nameof(Error), new { message = "Não posso remevoer o vendedor, pois ele tem vendas!!"});
+            }
+
             return View(vendedor);
         }
 
@@ -65,12 +70,13 @@ namespace AppVendas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
+            var vendedor = await _VendedorService.FindByIDAsync(id);
             try
             {
                 await _VendedorService.RemoveAsync(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch (IntegrityException e)
+            catch(ApplicationException e)
             {
                return RedirectToAction(nameof(Error), new { message = e.Message});
             }

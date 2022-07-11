@@ -10,7 +10,7 @@ namespace AppVendas.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "O campo {0} É obrigatório")]
-        [EmailAddress(ErrorMessage = "Enter a valid email")]
+        [EmailAddress(ErrorMessage = "Entre com um email válido!")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
