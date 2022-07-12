@@ -27,7 +27,7 @@ namespace AppVendas.Models.Services
             return await result
                    .Include(x => x.Vendedor)
                    .Include(x => x.Vendedor.Department)
-                   .OrderByDescending(x => x.Data)
+                   .OrderBy(x => x.Data)
                    .ToListAsync();
         }
 
@@ -48,7 +48,7 @@ namespace AppVendas.Models.Services
 
                 .Include(x => x.Vendedor.Department)
 
-                .OrderByDescending(x => x.Data)
+                .OrderBy(x => x.Data)
 
                 .ToListAsync();
 

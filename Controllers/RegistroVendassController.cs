@@ -30,8 +30,8 @@ namespace AppVendas.Controllers
             {
                 maxDate = DateTime.Now;
             }
-            ViewData["minDate"] = minDate.Value;
-            ViewData["maxDate"] = maxDate.Value;
+            ViewData["minDate"] = minDate.Value.ToString("yyyy-MM-dd");;
+            ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");;
             var result = await _RegistroVendasService.FindByDateAsync(minDate, maxDate);
             return View(result);
         }

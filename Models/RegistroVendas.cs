@@ -5,9 +5,12 @@ namespace AppVendas.Models
     public class RegistroVendas
     {
         public int Id { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime Data { get; set; }
 
         [Display(Name ="Valor")]
+        [DisplayFormat(DataFormatString ="{0:F2}")]
         public double Quantidade { get; set; }
 
         [Display(Name ="Status Venda")]
